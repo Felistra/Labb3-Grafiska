@@ -53,7 +53,32 @@ const menu = {
 
 window.addEventListener("load", function() {
 
-	menu["Pizzor klass 1"].forEach(addPizza);
+	// menu["Pizzor klass 1"].forEach(addItem);
+	let group1 = document.querySelector("#list-group-1");
+	let group2 = document.querySelector("#list-group-2");
+	let group3 = document.querySelector("#list-group-3");
+	let group4 = document.querySelector("#list-group-4");
+
+	menu["Pizzor klass 1"].forEach(pizza => {
+		addItem(pizza, group1);
+		// addDescription(pizza);
+	});
+
+	menu["Pizzor klass 2"].forEach(pizza => {
+		addItem(pizza, group2);
+	});
+
+	menu["Pizzor klass 3"].forEach(pizza => {
+		addItem(pizza, group3);
+	});
+
+	menu["Såser"].forEach(sauce => {
+		addItem(sauce, group4);
+	});
+
+
+
+	// menu["Pizzor klass 2"].forEach(addItem);
 	
 
 	/*menu["Pizzor klass 1"].forEach(pizza => {
@@ -72,24 +97,35 @@ window.addEventListener("load", function() {
 	}); */
 });
 
-function addPizza(item, index) { 
-	// let text = document.createTextNode(item.name);
-	let button = document.querySelectorAll(".pizza-item");
+function addItem(item, group) { 
+	let div = document.createElement("div");
+	div.classList.add("list-group-item");
 
-	for(let i=0;i<button.length;i++) {
-		// let text = document.createTextNode(item.name);
-		// button[i].appendChild(text);
-		for(let j=0;j<button.length;j++) {
-			button[i].textContent = j;
-		}
+	group.appendChild(div);
+
+	let text = document.createElement("h3");
+	text.textContent = item.name;
+	div.appendChild(text);
+
+	if(!item.name.endsWith(" ")) {
+		addDescription(item, div);
 	}
+}
 
-	//button.textContent += index + ": " + item + "<br>"; 
-	/* let text = "";
-	let items = document.querySelectorAll(".pizza-item");
-	text += index + ": " + item + "<br>"; 
+function addDescription(pizza, div) {
+	pizza.contents.forEach(ingredient => {
+		let p  = document.createElement("p");
+		p.textContent = ingredient;
+
+		if(ingredient.startsWith("a:")) {
+			p.style.fontWeight = "bold";
+			p.textContent.slice(2, 4);
+		}
+
+		for(let i=0;i<pizza.contents.length;i++) {
+			div.appendChild(p);
+		}
+	});
+	console.log(div);
 	
-	for(let i=0;i<items.length;i++) {
-		items[i].innerHTML = text;
-	}*/
 }
