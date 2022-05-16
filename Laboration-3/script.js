@@ -53,13 +53,43 @@ const menu = {
 
 window.addEventListener("load", function() {
 
-	//console.log(menu["Pizzor klass 1"]);
-	menu["Pizzor klass 2"].forEach(pizza => {
-		console.log(pizza);
+	menu["Pizzor klass 1"].forEach(addPizza);
+	
+
+	/*menu["Pizzor klass 1"].forEach(pizza => {
+		let pizza_items = document.querySelectorAll(".pizza-item");
+
+		pizza_items.forEach(pizza_item => {
+			pizza_item.textContent = pizza.name;
+		});
+		// console.log(pizza.name);
+
 		pizza.contents.forEach(ingredient => {
 			if(ingredient.startsWith("a:")) {
 				console.log(ingredient);
 			}
 		});
-	});
+	}); */
 });
+
+function addPizza(item, index) { 
+	// let text = document.createTextNode(item.name);
+	let button = document.querySelectorAll(".pizza-item");
+
+	for(let i=0;i<button.length;i++) {
+		// let text = document.createTextNode(item.name);
+		// button[i].appendChild(text);
+		for(let j=0;j<button.length;j++) {
+			button[i].textContent = j;
+		}
+	}
+
+	//button.textContent += index + ": " + item + "<br>"; 
+	/* let text = "";
+	let items = document.querySelectorAll(".pizza-item");
+	text += index + ": " + item + "<br>"; 
+	
+	for(let i=0;i<items.length;i++) {
+		items[i].innerHTML = text;
+	}*/
+}
