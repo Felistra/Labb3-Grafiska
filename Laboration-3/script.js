@@ -53,7 +53,6 @@ const menu = {
 
 window.addEventListener("load", function() {
 
-	// menu["Pizzor klass 1"].forEach(addItem);
 	let group1 = document.querySelector("#list-group-1");
 	let group2 = document.querySelector("#list-group-2");
 	let group3 = document.querySelector("#list-group-3");
@@ -61,7 +60,6 @@ window.addEventListener("load", function() {
 
 	menu["Pizzor klass 1"].forEach(pizza => {
 		addItem(pizza, group1);
-		// addDescription(pizza);
 	});
 
 	menu["Pizzor klass 2"].forEach(pizza => {
@@ -75,57 +73,58 @@ window.addEventListener("load", function() {
 	menu["Såser"].forEach(sauce => {
 		addItem(sauce, group4);
 	});
-
-
-
-	// menu["Pizzor klass 2"].forEach(addItem);
-	
-
-	/*menu["Pizzor klass 1"].forEach(pizza => {
-		let pizza_items = document.querySelectorAll(".pizza-item");
-
-		pizza_items.forEach(pizza_item => {
-			pizza_item.textContent = pizza.name;
-		});
-		// console.log(pizza.name);
-
-		pizza.contents.forEach(ingredient => {
-			if(ingredient.startsWith("a:")) {
-				console.log(ingredient);
-			}
-		});
-	}); */
 });
 
 function addItem(item, group) { 
 	let div = document.createElement("div");
 	div.classList.add("list-group-item");
-
 	group.appendChild(div);
 
 	let text = document.createElement("h3");
-	text.textContent = item.name;
+	text.textContent = item.name + " ";
 	div.appendChild(text);
+
+	let price = document.createElement("span");
+	price.textContent = item.price + " kr";
+	text.appendChild(price);
 
 	if(!item.name.endsWith(" ")) {
 		addDescription(item, div);
 	}
+
+	let imageDiv = document.createElement("div");
+	imageDiv.setAttribute("class", "imageDiv");
+	div.appendChild(imageDiv);
+
+	let minusImage = document.createElement("img");
+	minusImage.src = "images/minus.png";
+	minusImage.style.width = "30px"; // Får vi ha fasta pixelvärden?
+	minusImage.style.display = "none";
+	imageDiv.appendChild(minusImage);
+
+	let plusImage = document.createElement("img");
+	plusImage.src = "images/plus.png";
+	plusImage.style.width = "30px";
+	imageDiv.appendChild(plusImage);
+	plusImage.addEventListener("click", function() {
+		console.log("hej");
+		minusImage.style.display = "block";
+	});
 }
 
 function addDescription(pizza, div) {
+
 	pizza.contents.forEach(ingredient => {
-		let p  = document.createElement("p");
-		p.textContent = ingredient;
+		let p  = document.createElement("span");
+		p.textContent = ingredient + " ";
 
 		if(ingredient.startsWith("a:")) {
 			p.style.fontWeight = "bold";
-			p.textContent.slice(2, 4);
+			p.textContent = p.textContent.slice(2, p.textContent.length);
 		}
-
+		
 		for(let i=0;i<pizza.contents.length;i++) {
 			div.appendChild(p);
 		}
 	});
-	console.log(div);
-	
 }
