@@ -21,6 +21,14 @@ body {
     border-color: papayawhip;
 }
 
+/*******
+* För att bli av med Bootstraps egna blåa outline. 
+*******/
+#navbar > button:active, #navbar > button:focus {
+    outline: none !important;
+    box-shadow: none;
+}
+
 #navbar > button:hover {
     background-color: rgb(238, 151, 59);
 }
