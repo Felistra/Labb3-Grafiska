@@ -2,7 +2,35 @@
     box-sizing: border-box;
 }
 
+body {
+    background-color: papayawhip;
+}
+
 .imageDiv {
     display: flex;
     justify-content: flex-end;
 }
+
+#navbar {
+    display: flex;
+    justify-content: center;
+}
+
+#navbar > button {
+    background-color: papayawhip;
+    border-color: papayawhip;
+}
+
+#navbar > button:hover {
+    background-color: rgb(238, 151, 59);
+}
+
+
+@media screen and (max-width: 500px) {
+    .image-fluid {
+        height: 60px;
+    }
+}
+
+
+

@@ -86,6 +86,7 @@ function addItem(item, group) {
 
 	let price = document.createElement("span");
 	price.textContent = item.price + " kr";
+	price.style.fontStyle = "italic";
 	text.appendChild(price);
 
 	if(!item.name.endsWith(" ")) {
@@ -126,5 +127,5 @@ function addDescription(pizza, div) {
 		for(let i=0;i<pizza.contents.length;i++) {
 			div.appendChild(p);
 		}
-	});
+	}); 
 }
