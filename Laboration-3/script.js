@@ -69,6 +69,8 @@ let button1 = document.querySelector("#button1");
 let button2 = document.querySelector("#button2");
 let button3 = document.querySelector("#button3");
 
+let priceLabel = document.querySelector("#priceLabel");
+
 let counter = 0;
 let order = [];
 let totalPrice = 0; 
@@ -139,6 +141,8 @@ function addItem(item, group) {
 
 	plusImage.addEventListener("click", function() {
 		order.push(item);
+		totalPrice = totalPrice + item.price;
+		priceLabel.textContent = totalPrice; 
 		addToBasket(order); 
 	});
 }
@@ -225,14 +229,12 @@ function viewBasket() {
 	item5.classList.add("hidden");
 	item6.classList.remove("hidden");
 
-	let priceLabel = document.querySelector("#priceLabel");
-	priceLabel.textContent = totalPrice; // Kolla upp denna
+	priceLabel.textContent = totalPrice; 
 }
 
 function addToBasket(order) {
 	clearGroup(group6);
 	order.forEach(item => {
 		addItem(item, group6);
-		totalPrice += item.price; // Kolla upp denna
 	});
 }

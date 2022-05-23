@@ -38,7 +38,8 @@ body {
 
 #navbar > button {
     background-color: #FCF0C8;
-    border-color: #FCF0C8;
+    border: 1px solid #FCF0C8;
+    border-top: 1px solid #FACE7F;
     color: black;
 }
 
