@@ -1,4 +1,4 @@
-"use strict"; // Strictmode för att få felmeddelanden i konsollen 
+"use strict"; // Strictmode för att få felmeddelanden i konsollen och i IDE:n
 
 const menu = {
 	"Pizzor klass 1": [
@@ -51,12 +51,26 @@ const menu = {
 	]
 }
 
+let group1 = document.querySelector("#list-group-1");
+let group2 = document.querySelector("#list-group-2");
+let group3 = document.querySelector("#list-group-3");
+let group4 = document.querySelector("#list-group-4");
+let group5 = document.querySelector("#list-group-5");
+
+let item1 = document.querySelector("#item1");
+let item2 = document.querySelector("#item2");
+let item3 = document.querySelector("#item3");
+let item4 = document.querySelector("#item4");
+let item5 = document.querySelector("#item5");
+
+let button1 = document.querySelector("#button1");
+let button2 = document.querySelector("#button2");
+let button3 = document.querySelector("#button3");
+
 window.addEventListener("load", function() {
 
-	let group1 = document.querySelector("#list-group-1");
-	let group2 = document.querySelector("#list-group-2");
-	let group3 = document.querySelector("#list-group-3");
-	let group4 = document.querySelector("#list-group-4");
+	button1.classList.add("active");
+	item5.classList.add("hidden");
 
 	menu["Pizzor klass 1"].forEach(pizza => {
 		addItem(pizza, group1);
@@ -73,7 +87,15 @@ window.addEventListener("load", function() {
 	menu["Såser"].forEach(sauce => {
 		addItem(sauce, group4);
 	});
+
+	button1.addEventListener("click", viewPizzas);
+	button2.addEventListener("click", viewDrinks);
+	button3.addEventListener("click", viewBasket);
+	
 });
+function clearGroup(group) {
+	group.innerHTML = "";
+}
 
 function addItem(item, group) { 
 	let div = document.createElement("div");
@@ -116,16 +138,75 @@ function addItem(item, group) {
 function addDescription(pizza, div) {
 
 	pizza.contents.forEach(ingredient => {
-		let p  = document.createElement("span");
-		p.textContent = ingredient + " ";
+		let span  = document.createElement("span");
+		span.textContent = ingredient + " ";
 
 		if(ingredient.startsWith("a:")) {
-			p.style.fontWeight = "bold";
-			p.textContent = p.textContent.slice(2, p.textContent.length);
+			span.style.fontWeight = "bold";
+			span.textContent = span.textContent.slice(2, span.textContent.length);
 		}
 		
 		for(let i=0;i<pizza.contents.length;i++) {
-			div.appendChild(p);
+			div.appendChild(span);
 		}
 	}); 
+}
+
+function viewPizzas() {
+	button1.classList.add("active");
+	button2.classList.remove("active");
+	button3.classList.remove("active");
+
+	item1.classList.remove("hidden");
+	item2.classList.remove("hidden");
+	item3.classList.remove("hidden");
+	item4.classList.remove("hidden");
+	item5.classList.add("hidden");
+
+	clearGroup(group1);
+	clearGroup(group2);
+	clearGroup(group3);
+	clearGroup(group4);
+
+	menu["Pizzor klass 1"].forEach(pizza => {
+		addItem(pizza, group1);
+	});
+
+	menu["Pizzor klass 2"].forEach(pizza => {
+		addItem(pizza, group2);
+	});
+
+	menu["Pizzor klass 3"].forEach(pizza => {
+		addItem(pizza, group3);
+	});
+
+	menu["Såser"].forEach(sauce => {
+		addItem(sauce, group4);
+	});
+}
+
+function viewDrinks() {
+	button1.classList.remove("active");
+	button2.classList.add("active");
+	button3.classList.remove("active");
+
+	item1.classList.add("hidden");
+	item2.classList.add("hidden");
+	item3.classList.add("hidden");
+	item4.classList.add("hidden");
+	item5.classList.remove("hidden");
+
+	clearGroup(group5);
+
+	menu["Dryck"].forEach(drink => {
+		addItem(drink, group5);
+	});
+}
+
+function viewBasket() {
+	button1.classList.remove("active");
+	button2.classList.remove("active");
+	button3.classList.add("active");
+
+	item5.classList.remove("hidden");
 }

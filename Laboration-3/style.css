@@ -3,7 +3,17 @@
 }
 
 body {
-    background-color: papayawhip;
+    background-color: #FCF0C8;
+}
+
+.accordion-header > button {
+    background-color: #911F27 !important; 
+    color: #ffffff !important;
+    font-size: large;
+}
+
+.accordion-body {
+    background-color: #630A10;
 }
 
 .imageDiv {
@@ -17,8 +27,9 @@ body {
 }
 
 #navbar > button {
-    background-color: papayawhip;
-    border-color: papayawhip;
+    background-color: #FCF0C8;
+    border-color: #FCF0C8;
+    color: black;
 }
 
 /*******
@@ -30,9 +41,24 @@ body {
 }
 
 #navbar > button:hover {
-    background-color: rgb(238, 151, 59);
+    background-color: #FACE7F;
 }
 
+#navbar > .active {
+    background-color: #FACE7F;
+}
+
+.hidden {
+    display: none;
+}
+
+.list-group-item:nth-child(odd) {
+    background-color: #FCF0C8;
+}
+
+.list-group-item:nth-child(even) {
+    background-color: #FACE7F;
+}
 
 @media screen and (max-width: 500px) {
     .image-fluid {
