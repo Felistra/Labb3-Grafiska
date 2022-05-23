@@ -56,21 +56,28 @@ let group2 = document.querySelector("#list-group-2");
 let group3 = document.querySelector("#list-group-3");
 let group4 = document.querySelector("#list-group-4");
 let group5 = document.querySelector("#list-group-5");
+let group6 = document.querySelector("#list-group-orders");
 
 let item1 = document.querySelector("#item1");
 let item2 = document.querySelector("#item2");
 let item3 = document.querySelector("#item3");
 let item4 = document.querySelector("#item4");
 let item5 = document.querySelector("#item5");
+let item6 = document.querySelector("#item6");
 
 let button1 = document.querySelector("#button1");
 let button2 = document.querySelector("#button2");
 let button3 = document.querySelector("#button3");
 
+let counter = 0;
+let order = [];
+let totalPrice = 0; 
+
 window.addEventListener("load", function() {
 
 	button1.classList.add("active");
 	item5.classList.add("hidden");
+	item6.classList.add("hidden");
 
 	menu["Pizzor klass 1"].forEach(pizza => {
 		addItem(pizza, group1);
@@ -121,7 +128,7 @@ function addItem(item, group) {
 
 	let minusImage = document.createElement("img");
 	minusImage.src = "images/minus.png";
-	minusImage.style.width = "30px"; // Får vi ha fasta pixelvärden?
+	minusImage.style.width = "30px"; 
 	minusImage.style.display = "none";
 	imageDiv.appendChild(minusImage);
 
@@ -129,9 +136,10 @@ function addItem(item, group) {
 	plusImage.src = "images/plus.png";
 	plusImage.style.width = "30px";
 	imageDiv.appendChild(plusImage);
+
 	plusImage.addEventListener("click", function() {
-		console.log("hej");
-		minusImage.style.display = "block";
+		order.push(item);
+		addToBasket(order); 
 	});
 }
 
@@ -162,6 +170,7 @@ function viewPizzas() {
 	item3.classList.remove("hidden");
 	item4.classList.remove("hidden");
 	item5.classList.add("hidden");
+	item6.classList.add("hidden");
 
 	clearGroup(group1);
 	clearGroup(group2);
@@ -195,6 +204,7 @@ function viewDrinks() {
 	item3.classList.add("hidden");
 	item4.classList.add("hidden");
 	item5.classList.remove("hidden");
+	item6.classList.add("hidden");
 
 	clearGroup(group5);
 
@@ -208,5 +218,21 @@ function viewBasket() {
 	button2.classList.remove("active");
 	button3.classList.add("active");
 
-	item5.classList.remove("hidden");
+	item1.classList.add("hidden");
+	item2.classList.add("hidden");
+	item3.classList.add("hidden");
+	item4.classList.add("hidden");
+	item5.classList.add("hidden");
+	item6.classList.remove("hidden");
+
+	let priceLabel = document.querySelector("#priceLabel");
+	priceLabel.textContent = totalPrice; // Kolla upp denna
+}
+
+function addToBasket(order) {
+	clearGroup(group6);
+	order.forEach(item => {
+		addItem(item, group6);
+		totalPrice += item.price; // Kolla upp denna
+	});
 }
