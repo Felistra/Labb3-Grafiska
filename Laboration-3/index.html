@@ -90,7 +90,7 @@
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
           </div>
           <div class="col-6 mt-2">
-            <button type="button" class="btn btn-primary">Beställ</button>
+            <button type="button" class="btn btn-primary" id="order-button">Beställ</button>
           </div>
           <div class="col-6 mt-2">
             <p>Total summa: <span id="priceLabel"></span></p>
@@ -103,7 +103,12 @@
       <div class="btn-group btn-group-lg fixed-bottom" id="navbar">
         <button type="button" id="button1" class="btn btn-primary"><img src="images/pizza.png" class="image-fluid" height="100">Mat</button>
         <button type="button" id="button2" class="btn btn-primary"><img src="images/drink.png" class="image-fluid" height="100">Dryck</button>
-        <button type="button" id="button3" class="btn btn-primary"><img src="images/Colorbag.png" class="image-fluid" height="100">Varukorg</button>
+        <button type="button" id="button3" class="btn btn-primary"><img src="images/Colorbag.png" class="image-fluid" height="100">
+          Varukorg
+          <span class="position-absolute top-0 start-75 translate-middle badge rounded-pill bg-danger">
+            <span id="nbrOfOrders"></span>
+          </span>
+        </button>
       </div> 
       
     </div>

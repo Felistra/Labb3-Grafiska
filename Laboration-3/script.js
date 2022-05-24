@@ -70,6 +70,9 @@ let button2 = document.querySelector("#button2");
 let button3 = document.querySelector("#button3");
 
 let priceLabel = document.querySelector("#priceLabel");
+let orderButton = document.querySelector("#order-button");
+let badge = document.querySelector(".badge");
+let nbrOfOrders = document.querySelector("#nbrOfOrders");
 
 let counter = 0;
 let order = [];
@@ -80,6 +83,7 @@ window.addEventListener("load", function() {
 	button1.classList.add("active");
 	item5.classList.add("hidden");
 	item6.classList.add("hidden");
+	badge.classList.add("hidden");
 
 	menu["Pizzor klass 1"].forEach(pizza => {
 		addItem(pizza, group1);
@@ -100,6 +104,8 @@ window.addEventListener("load", function() {
 	button1.addEventListener("click", viewPizzas);
 	button2.addEventListener("click", viewDrinks);
 	button3.addEventListener("click", viewBasket);
+
+	orderButton.addEventListener("click", checkOutOrder);
 	
 });
 function clearGroup(group) {
@@ -128,12 +134,6 @@ function addItem(item, group) {
 	imageDiv.setAttribute("class", "imageDiv");
 	div.appendChild(imageDiv);
 
-	let minusImage = document.createElement("img");
-	minusImage.src = "images/minus.png";
-	minusImage.style.width = "30px"; 
-	minusImage.style.display = "none";
-	imageDiv.appendChild(minusImage);
-
 	let plusImage = document.createElement("img");
 	plusImage.src = "images/plus.png";
 	plusImage.style.width = "30px";
@@ -143,6 +143,9 @@ function addItem(item, group) {
 		order.push(item);
 		totalPrice = totalPrice + item.price;
 		priceLabel.textContent = totalPrice; 
+		counter++;
+		badge.classList.remove("hidden");
+		nbrOfOrders.textContent = counter;
 		addToBasket(order); 
 	});
 }
@@ -237,4 +240,26 @@ function addToBasket(order) {
 	order.forEach(item => {
 		addItem(item, group6);
 	});
+
+	let imageDiv = document.querySelectorAll("#list-group-orders > .list-group-item > .imageDiv");
+	
+	imageDiv.forEach(image => {
+		let minusImage = document.createElement("img");
+		minusImage.src = "images/minus.png";
+		minusImage.style.width = "30px"; 
+		minusImage.style.display = "block";
+		image.appendChild(minusImage);
+		minusImage.addEventListener("click", removeItemFromBasket);
+	});
+	
+}
+
+function checkOutOrder() {
+	
+}
+
+function removeItemFromBasket(e) {
+	console.log(e.target.parentElement.parentElement);
+	// order.remove(e.target.parentElement.parentElement);
+	group6.remove(e.target.parentElement.parentElement);
 }

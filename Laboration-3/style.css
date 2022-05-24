@@ -87,6 +87,11 @@ body {
     color: #ffffff;
 }
 
+.btn .badge {
+    bottom: 60px !important;
+    top: 20px !important;
+}
+
 @media screen and (max-width: 500px) {
     .image-fluid {
         height: 60px;
