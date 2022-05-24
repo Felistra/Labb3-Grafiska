@@ -80,26 +80,44 @@
       <div class="container" id="item6">
         <div class="row">
           <div class="col-12 basket-heading">
-            <h3 class="text-center p-2">Varukorg</h3>
+            <h3 class="text-center p-2"><strong>Varukorg</strong></h3>
           </div>
           <div class="col-12 mt-2">
             <div class="list-group" id="list-group-orders"></div>
           </div>
           <div class="col-12 mt-2">
-            <h6>Övriga önskemål:</h6>
+            <h4><strong>Övriga önskemål:</strong></h4>
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
           </div>
-          <div class="col-6 mt-2">
-            <button type="button" class="btn btn-primary" id="order-button">Beställ</button>
+          <div class="col-4 mt-2">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="order-button">Beställ</button>
           </div>
-          <div class="col-6 mt-2">
-            <p>Total summa: <span id="priceLabel"></span></p>
+          <div class="col-8 mt-2">
+            <h4 class="text-end"><strong>Total summa: <span id="priceLabel"></span></strong></h4>
           </div> 
         </div>
       </div>
 
-      <div id="filler"></div> 
+      <div id="filler"></div>
 
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Beställ</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" id="close" data-bs-dismiss="modal">Stäng</button>
+              <button type="button" class="btn btn-primary" id="confirm" data-bs-dismiss="modal">Bekräfta</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="btn-group btn-group-lg fixed-bottom" id="navbar">
         <button type="button" id="button1" class="btn btn-primary"><img src="images/pizza.png" class="image-fluid" height="100">Mat</button>
         <button type="button" id="button2" class="btn btn-primary"><img src="images/drink.png" class="image-fluid" height="100">Dryck</button>

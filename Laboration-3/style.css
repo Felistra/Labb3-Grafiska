@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Raleway:ital,wght@0,700;1,700&display=swap');
+
 * {
     box-sizing: border-box;
+    font-family: 'raleway', sans-serif;
 }
 
 body {
@@ -90,6 +93,23 @@ body {
 .btn .badge {
     bottom: 60px !important;
     top: 20px !important;
+}
+
+.modal-content {
+    background-color: #FCF0C8;
+}
+
+#confirm, #close {
+    background-color: #911F27;
+}
+
+#order-button {
+    background-color: #FACE7F;
+    color: black;
+}
+
+.ingredients {
+    font-family: "Merriweather", serif;
 }
 
 @media screen and (max-width: 500px) {

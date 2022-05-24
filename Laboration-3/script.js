@@ -155,6 +155,8 @@ function addDescription(pizza, div) {
 	pizza.contents.forEach(ingredient => {
 		let span  = document.createElement("span");
 		span.textContent = ingredient + " ";
+		span.setAttribute("class", "ingredients");
+		
 
 		if(ingredient.startsWith("a:")) {
 			span.style.fontWeight = "bold";
@@ -255,11 +257,53 @@ function addToBasket(order) {
 }
 
 function checkOutOrder() {
-	
+
+	let modalBody = document.querySelector(".modal-body");
+	modalBody.innerHTML = "";
+
+	order.forEach(item => {
+		console.log(item);//modalBody.appendChild(item);
+
+		let p1 = document.createElement("p");
+
+		p1.textContent = item.name;
+		p1.style.fontWeight = "bold";
+		modalBody.appendChild(p1);
+
+	});
+
+	let p = document.createElement("p");
+	p.textContent = "Totala summan: " + totalPrice;
+	modalBody.appendChild(p);
+
+	let confirm = document.querySelector("#confirm");
+	confirm.addEventListener("click", function() {
+		order = [];
+		clearGroup(group6);
+		totalPrice = 0;
+		counter = 0;
+		priceLabel.textContent = totalPrice;
+		badge.classList.add("hidden");
+	});	
 }
 
 function removeItemFromBasket(e) {
-	console.log(e.target.parentElement.parentElement);
-	// order.remove(e.target.parentElement.parentElement);
-	group6.remove(e.target.parentElement.parentElement);
-}
+
+	group6.removeChild(e.target.parentElement.parentElement);
+	order.splice(e.target.parentElement.parentElement);
+	counter--;
+	nbrOfOrders.textContent = counter;
+	if(counter == 0) {
+		badge.classList.add("hidden");
+	}
+
+	let tempPrice = e.target.parentElement.parentElement.childNodes[0].childNodes[1].firstChild.nodeValue;
+	tempPrice = tempPrice.slice(0, 2);
+	totalPrice = totalPrice - tempPrice;
+	priceLabel.textContent = totalPrice;
+	
+
+
+
+
+	}
