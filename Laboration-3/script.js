@@ -1,5 +1,6 @@
 "use strict"; // Strictmode för att få felmeddelanden i konsollen och i IDE:n
 
+/* JSON-objekt med menyn, gjort den till en konstant då den ej ska kunna modifieras */
 const menu = {
 	"Pizzor klass 1": [
 		{"name": "Margherita", "contents": ["Tomatsås", "Ost"], "price": 65 },
@@ -51,6 +52,7 @@ const menu = {
 	]
 }
 
+/* Variabler för att hämta ut listgrupperna i domen */
 let group1 = document.querySelector("#list-group-1");
 let group2 = document.querySelector("#list-group-2");
 let group3 = document.querySelector("#list-group-3");
@@ -73,13 +75,16 @@ let priceLabel = document.querySelector("#priceLabel");
 let orderButton = document.querySelector("#order-button");
 let badge = document.querySelector(".badge");
 let nbrOfOrders = document.querySelector("#nbrOfOrders");
+let textArea = document.querySelector("textarea");
 
-let counter = 0;
-let order = [];
-let totalPrice = 0; 
+let counter = 0; // Räknare för antal i varukorgen
+let order = []; // Tom array som ska innehålla en order
+let totalPrice = 0;  // Totala priset för ett köp
 
+/* När sidan har laddats och domen har byggts upp */
 window.addEventListener("load", function() {
 
+	/* Lägger på klassen .active på Mat-knappen och klassen .hidden på allt som inte ska visas på sidan */
 	button1.classList.add("active");
 	item5.classList.add("hidden");
 	item6.classList.add("hidden");
@@ -108,10 +113,13 @@ window.addEventListener("load", function() {
 	orderButton.addEventListener("click", checkOutOrder);
 	
 });
+
+/* Metod som rensar en list-group för att inte få dubletter */
 function clearGroup(group) {
 	group.innerHTML = "";
 }
 
+/* Metod som skapar upp taggar dynamiskt och presenterar mat, sås och dryck i list-group-items */
 function addItem(item, group) { 
 	let div = document.createElement("div");
 	div.classList.add("list-group-item");
@@ -126,7 +134,7 @@ function addItem(item, group) {
 	price.style.fontStyle = "italic";
 	text.appendChild(price);
 
-	if(!item.name.endsWith(" ")) {
+	if(!item.name.endsWith(" ")) { // Om ett item i foreachen slutar på ett mellanslag så är det en pizza och ska då skriva ut innehållet
 		addDescription(item, div);
 	}
 
@@ -139,7 +147,7 @@ function addItem(item, group) {
 	plusImage.style.width = "30px";
 	imageDiv.appendChild(plusImage);
 
-	plusImage.addEventListener("click", function() {
+	plusImage.addEventListener("click", function() { // Vid klick på ett plustecken så läggs ett item till i order
 		order.push(item);
 		totalPrice = totalPrice + item.price;
 		priceLabel.textContent = totalPrice; 
@@ -150,6 +158,7 @@ function addItem(item, group) {
 	});
 }
 
+/* Metod som anropas om ett item är en pizza och ska skriva ut innehåller i pizzan */
 function addDescription(pizza, div) {
 
 	pizza.contents.forEach(ingredient => {
@@ -158,7 +167,7 @@ function addDescription(pizza, div) {
 		span.setAttribute("class", "ingredients");
 		
 
-		if(ingredient.startsWith("a:")) {
+		if(ingredient.startsWith("a:")) { // Om en ingrediens startar på a: är det en allergen
 			span.style.fontWeight = "bold";
 			span.textContent = span.textContent.slice(2, span.textContent.length);
 		}
@@ -169,6 +178,7 @@ function addDescription(pizza, div) {
 	}); 
 }
 
+/* Metod som anropas om man klickar på mat-knappen */
 function viewPizzas() {
 	button1.classList.add("active");
 	button2.classList.remove("active");
@@ -181,6 +191,7 @@ function viewPizzas() {
 	item5.classList.add("hidden");
 	item6.classList.add("hidden");
 
+	// Tömmer alla list-groups för att inte få dubletter
 	clearGroup(group1);
 	clearGroup(group2);
 	clearGroup(group3);
@@ -203,6 +214,7 @@ function viewPizzas() {
 	});
 }
 
+/* Metod som anropas om man klickar på dryck-knappen */
 function viewDrinks() {
 	button1.classList.remove("active");
 	button2.classList.add("active");
@@ -222,6 +234,7 @@ function viewDrinks() {
 	});
 }
 
+/* Metod som anropas om man klickar på varukorg-knappen */
 function viewBasket() {
 	button1.classList.remove("active");
 	button2.classList.remove("active");
@@ -237,14 +250,16 @@ function viewBasket() {
 	priceLabel.textContent = totalPrice; 
 }
 
+/* Metod som anropas om man klickar på ett plustecken */
 function addToBasket(order) {
 	clearGroup(group6);
 	order.forEach(item => {
-		addItem(item, group6);
+		addItem(item, group6); // Anropar metoden addItem för att skriva ut beställningen på samma sätt som i menyn
 	});
 
 	let imageDiv = document.querySelectorAll("#list-group-orders > .list-group-item > .imageDiv");
 	
+	// Skapar en bild med ett minustecken om man vill ta bort något från varukorgen
 	imageDiv.forEach(image => {
 		let minusImage = document.createElement("img");
 		minusImage.src = "images/minus.png";
@@ -256,29 +271,33 @@ function addToBasket(order) {
 	
 }
 
+/* Metod som anropas om man klickar på beställ-knappen */
 function checkOutOrder() {
 
 	let modalBody = document.querySelector(".modal-body");
 	modalBody.innerHTML = "";
 
 	order.forEach(item => {
-		console.log(item);//modalBody.appendChild(item);
-
 		let p1 = document.createElement("p");
-
 		p1.textContent = item.name;
 		p1.style.fontWeight = "bold";
 		modalBody.appendChild(p1);
-
 	});
 
-	let p = document.createElement("p");
-	p.textContent = "Totala summan: " + totalPrice;
-	modalBody.appendChild(p);
+	let p2 = document.createElement("p");
+	p2.textContent = textArea.value;
+	p2.setAttribute("class", "ingredients");
+	modalBody.appendChild(p2);
 
+	let p3 = document.createElement("p");
+	p3.textContent = "Totala summan: " + totalPrice;
+	modalBody.appendChild(p3);
+
+	// Om man trycker på bekräfta-knappen
 	let confirm = document.querySelector("#confirm");
 	confirm.addEventListener("click", function() {
 		order = [];
+		textArea.value = "";
 		clearGroup(group6);
 		totalPrice = 0;
 		counter = 0;
@@ -287,23 +306,20 @@ function checkOutOrder() {
 	});	
 }
 
+/* Metod som anropas när man tar bort ett item ur varukorgen */
 function removeItemFromBasket(e) {
 
 	group6.removeChild(e.target.parentElement.parentElement);
 	order.splice(e.target.parentElement.parentElement);
 	counter--;
+
 	nbrOfOrders.textContent = counter;
 	if(counter == 0) {
 		badge.classList.add("hidden");
 	}
 
-	let tempPrice = e.target.parentElement.parentElement.childNodes[0].childNodes[1].firstChild.nodeValue;
+	let tempPrice = e.target.parentElement.parentElement.childNodes[0].childNodes[1].firstChild.nodeValue; // tempPrice är en variabel för att hämta ut pris i domen på det item som man vill ta bort för att minska totalPrice
 	tempPrice = tempPrice.slice(0, 2);
 	totalPrice = totalPrice - tempPrice;
 	priceLabel.textContent = totalPrice;
-	
-
-
-
-
-	}
+}
