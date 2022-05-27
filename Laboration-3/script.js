@@ -76,6 +76,7 @@ let orderButton = document.querySelector("#order-button");
 let badge = document.querySelector(".badge");
 let nbrOfOrders = document.querySelector("#nbrOfOrders");
 let textArea = document.querySelector("textarea");
+let startOption = document.querySelector("#start");
 
 let counter = 0; // Räknare för antal i varukorgen
 let order = []; // Tom array som ska innehålla en order
@@ -290,8 +291,16 @@ function checkOutOrder() {
 	modalBody.appendChild(p2);
 
 	let p3 = document.createElement("p");
-	p3.textContent = "Totala summan: " + totalPrice;
+	p3.textContent = "Total summa: " + totalPrice;
 	modalBody.appendChild(p3);
+
+	let p4 = document.createElement("p");
+	if(startOption.value == 0) {
+		p4.textContent = "Bordsnummer: Inget bord valt";
+	} else {
+		p4.textContent = "Bordsnummer: " + startOption.value;
+	}
+	modalBody.appendChild(p4);
 
 	// Om man trycker på bekräfta-knappen
 	let confirm = document.querySelector("#confirm");
@@ -303,6 +312,7 @@ function checkOutOrder() {
 		counter = 0;
 		priceLabel.textContent = totalPrice;
 		badge.classList.add("hidden");
+		startOption.value = 0;
 	});	
 }
 
